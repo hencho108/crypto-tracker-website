@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<link href="static/style.css" rel="stylesheet">
+
+	<script>
+	// Highlight active Navbar item
+	$(document).ready(function() {
+		$('li.active').removeClass('active');
+		$('a[href="' + location.pathname + '"]').closest('li').addClass('active'); 
+	});
+	</script>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="/">📈 Crypto Tracker</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbar">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" href='/'>Home</a>
+				</li>
+				{% if user.is_authenticated == False %}
+				<li class="nav-item">
+					<a class="nav-link" href='/login'>Login</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href='/sign-up'>Sign Up</a>
+				</li>
+				{% endif %}
+				{% if user.is_authenticated %}
+				<li class="nav-item">
+					<a class="nav-link" href='/upload'>Upload</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href='/my-portfolio'>My Portfolio</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href='/logout'>Logout</a>
+				</li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<!--- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+	{% for category, message in messages %}
+	{% if category == 'error' %}
+	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		{{ message }}
+		<button type="button" class="close" data-dismiss="alert">
+			<span area-hidden="true">&times;</span>
+		</button>
+	</div>
+	{% else %}
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		{{ message }}
+		<button type="button" class="close" data-dismiss="alert">
+			<span area-hidden="true">&times;</span>
+		</button>
+	</div>
+	{% endif %}
+	{% endfor %}
+{% endif %}
+{% endwith %}
+
+<!--- Main section -->
+<br />
+<div class="container">
+	{% block content %}
+	{% endblock %}
+</div>
+
+
+</body>
+</html>
+
+
+
+

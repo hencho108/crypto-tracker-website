@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Upload CSV{% endblock %}
+{% block content %}
+
+<form class="" method="POST" action="data">
+    <h3 align="center">Upload Transactions File</h3><br />
+    <div class="input-group mb-3">
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" name="csv_file">
+            <label class="custom-file-label" for="custom_file">Choose file</label>
+        </div>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Upload</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    // To make the name of the file appear on select
+    $(".custom-file-input").on("change", function() {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+
+{% endblock %}
+
