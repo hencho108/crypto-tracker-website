@@ -5,7 +5,7 @@ import pandas as pd
 
 
 def get_coin_id(symbol='BTC'):
-    coin_ids = pd.read_csv('./coinmarketcap_config/coin_ids.csv')
+    coin_ids = pd.read_csv('./coinmarketcap/coin_ids.csv')
     id = coin_ids.loc[coin_ids['coin']==symbol, 'id'].values[0]
     return str(id)
 
@@ -40,14 +40,21 @@ def api_get_ticker(coin_id, currency_id):
 
     return price
 
+
 if __name__ == '__main__':
 
     currency_id = '2790' # unique coinmarketcap ID for EUR
-    coin_id = get_coin_id('BTC')
+    coin = 'DOGE'
+    start_date = '2010-04-28'
+    end_date = '2021-05-31'
+    coin_id = get_coin_id(coin)
 
-    #df = api_get_hist_data(coin_id, currency_id, '2021-04-01', '2021-06-05')
+    df = api_get_hist_data(coin_id, currency_id, start_date, end_date)
+    print(df)
+
+    df.to_csv(f'./coinmarketcap/historic_data_{coin}_to_EUR_{start_date}_to_{end_date}.csv', index=False)
+
+    #df = api_get_ticker(coin_id, currency_id)
     #print(df)
 
-    df = api_get_ticker(coin_id, currency_id)
-    print(df)
 

@@ -1,0 +1,4 @@
+date,type,from_symbol,to_symbol,price,quantity,fee
+2021-01-01,B,EUR,BTC,30000,0.5,0.2
+2021-01-02,B,EUR,ETH,1100,1,0.2
+2021-01-03,S,BTC,EUR,33000,0.3,0.2
